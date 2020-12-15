@@ -1,0 +1,22 @@
+/* */h1::before{content:""}/* */
+#markdown p {
+    text-align: justify;
+}
+#markdown ol li {
+    padding-left: 10px;
+}
+.links-container  .material-icons {
+    font-size: 20px;
+    line-height: 20px;
+    vertical-align: sub;
+}
+.links-container {
+    text-transform: capitalize;
+    text-align: center;
+}
+.links-container span::after {
+    content: ", ";
+}
+.links-container span:last-of-type:after {
+    content: "";
+}
