@@ -1,4 +1,4 @@
-var JSON;
+var JSONExport;
 var HOME = "";
 const validMD = [ "theory", "reference" ];
 let hasSimulation = false;
@@ -33,8 +33,8 @@ window.addEventListener( "load", function() {
     HOME = `${ name }/sim${ id }/`;
     fetch( HOME + "export.json", init )
         .then( response => response.json() )
-        .then( json => ( JSON = json ) )
-        .then( () => hasSimulation = JSON.simulation !== null )
+        .then( json => ( JSONExport = json ) )
+        .then( () => hasSimulation = JSONExport.simulation !== null )
         .then( () => {
             if ( !hasSimulation ) return;
             const googleIcon = document.createElement( "span" );
@@ -42,22 +42,22 @@ window.addEventListener( "load", function() {
             googleIcon.innerText = "open_in_new";
             const a = document.createElement( "a" );
             a.innerText = "simulation";
-            a.href = HOME + JSON.simulation;
+            a.href = HOME + JSONExport.simulation;
             a.target = "_blank";
             a.appendChild( googleIcon );
             const s = document.createElement( "span" );
             s.appendChild( a );
             links.forEach( elm => elm.appendChild( s.cloneNode( true ) ) );
         } )
-        .then( () => document.querySelector( "#nav-title" ).innerText = JSON.title )
-        .then( () => document.querySelector( "#title" ).innerText = JSON.title )
-        .then( () => document.querySelector( "#course" ).innerText = JSON.course )
-        .then( () => document.title = `${ JSON.course } Lab | ${ JSON.title }` )
+        .then( () => document.querySelector( "#nav-title" ).innerText = JSONExport.title )
+        .then( () => document.querySelector( "#title" ).innerText = JSONExport.title )
+        .then( () => document.querySelector( "#course" ).innerText = JSONExport.course )
+        .then( () => document.title = `${ JSONExport.course } Lab | ${ JSONExport.title }` )
         .then( () => window.dispatchEvent( new HashChangeEvent( "hashchange" ) ) );
 } );
 
 function loadMD( md ) {
-    fetch( HOME + JSON[ md ], init )
+    fetch( HOME + JSONExport[ md ], init )
         .then( response => response.text() )
         .then( text => document.querySelector( "#markdown" ).innerHTML = converter.makeHtml( add1head( text ) ) );
 }
