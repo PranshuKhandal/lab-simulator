@@ -1,9 +1,9 @@
 {
-    "id": 1,
-    "course": "Physics",
-    "title": "Photoelectric Effect",
-    "theory": "theory.md",
-    "procedure": "procedure.md",
-    "reference": "reference.md",
-    "simulation": "simulation.html"
+	"id": 1,
+	"course": "Physics",
+	"title": "Photoelectric Effect",
+	"theory": "theory.md",
+	"procedure": "procedure.md",
+	"reference": "reference.md",
+	"simulation": "simulation.html"
 }

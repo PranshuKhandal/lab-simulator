@@ -1,0 +1,9 @@
+@import url( "https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" );
+
+.major-mono-display {
+	font-family: "Major Mono Display", monospace;
+}
+
+canvas {
+	border: 1px solid black;
+}
