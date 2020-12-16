@@ -2,7 +2,7 @@ var JSONExport;
 const root = document.querySelector( "#root" );
 
 window.addEventListener( "load", function() {
-	fetch( "/export.json" )
+	fetch( "export.json" )
 		.then( response => response.json() )
 		.then( json => JSONExport = json )
 		.then( () => {
