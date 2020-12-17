@@ -1,8 +1,11 @@
 var JSONExport;
+const unsafeProbability = 1;
 const root = document.querySelector( "#root" );
 
 window.addEventListener( "load", function() {
-	fetch( "export.json" )
+	Promise.resolve()
+		.then( () => root.classList.add( "loading" ) )
+		.then( () => fetch( "export.json" ) )
 		.then( response => response.json() )
 		.then( json => JSONExport = json )
 		.then( () => {
@@ -28,6 +31,35 @@ window.addEventListener( "load", function() {
 				} );
 				root.appendChild( h3 );
 				root.appendChild( ol );
-			});
-		} );
+			} );
+		} )
+		.then( () => root.classList.remove( "loading" ) );
 } );
+
+const quotes = [
+	{
+		"content": "I am a lazy person, which is why I like open source, for other people to do work for me.",
+		"creator": "Linus Torvalds",
+		"probability": 1
+	},
+	{
+		"content": "Software is like sex: it's better when it's free.",
+		"creator": "Linus Torvalds",
+		"probability": unsafeProbability
+	}
+];
+
+const total = quotes.reduce( ( ( a, c )  => a + c.probability ), 0 );
+
+const prob = Math.random() * total;
+
+const quote = quotes.reduce( ( a, c ) => {
+	if ( typeof a === "number" ) {
+		if ( a + c.probability < prob ) return a + c.probability;
+		return c;
+	}
+	return a;
+}, 0 );
+
+document.querySelector( "#quote-content" ).innerText = quote.content.replaceAll( /'/g, "\u2019" );
+document.querySelector( "#quote-creator" ).innerText = quote.creator;

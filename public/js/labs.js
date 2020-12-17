@@ -5,12 +5,7 @@ let hasSimulation = false;
 const converter = new Markdown.Converter();
 const links = Array.from( document.querySelectorAll( ".links-container" ) );
 const linkStyles = document.querySelector( "#link-styles" );
-
-var headers = new Headers();
-headers.append( "pragma", "no-cache" );
-headers.append( "cache-control", "no-cache" );
-
-var init = { method: 'GET', headers: headers };
+const root = document.querySelector( "#markdown" );
 
 validMD.forEach( item => {
 	const a = document.createElement( "a" );
@@ -31,7 +26,10 @@ window.addEventListener( "load", function() {
 	const name = simName.substring( 0, 3 );
 	const id = Number( simName.substring( 3 ) );
 	HOME = `${ name }/sim${ id }/`;
-	fetch( HOME + "export.json", init )
+	Promise.resolve()
+		.then( () => root.classList.add( "loading" ) )
+		.then( () => root.innerHTML = "" )
+		.then( () => fetch( HOME + "export.json", init ) )
 		.then( response => response.json() )
 		.then( json => ( JSONExport = json ) )
 		.then( () => hasSimulation = JSONExport.simulation !== null )
@@ -49,6 +47,7 @@ window.addEventListener( "load", function() {
 			s.appendChild( a );
 			links.forEach( elm => elm.appendChild( s.cloneNode( true ) ) );
 		} )
+		.then( () => root.classList.remove( "loading" ) )
 		.then( () => document.querySelector( "#nav-title" ).innerText = JSONExport.title )
 		.then( () => document.querySelector( "#title" ).innerText = JSONExport.title )
 		.then( () => document.querySelector( "#course" ).innerText = JSONExport.course )
@@ -57,9 +56,13 @@ window.addEventListener( "load", function() {
 } );
 
 function loadMD( md ) {
-	fetch( HOME + JSONExport[ md ], init )
+	Promise.resolve()
+		.then( () => root.classList.add( "loading" ) )
+		.then( () => root.innerHTML = "" )
+		.then( () => fetch( HOME + JSONExport[ md ], init ) )
 		.then( response => response.text() )
-		.then( text => document.querySelector( "#markdown" ).innerHTML = converter.makeHtml( add1head( text ) ) );
+		.then( text => root.innerHTML = converter.makeHtml( add1head( text ) ) )
+		.then( () => root.classList.remove( "loading" ) );
 }
 
 window.addEventListener( "hashchange", function() {

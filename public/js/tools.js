@@ -1,3 +1,5 @@
+var delay = ms => new Promise( res => window.setTimeout( res, ms ) );
+
 function range( a, b, c ) {
 	const result = [];
 	if ( typeof b === "undefined" ) [ a, b ] = [ 0, a ];

@@ -49,3 +49,51 @@ ol > li {
 .version {
 	text-transform: none;
 }
+
+@keyframes loading-dots-before {
+	0% {
+		padding-left: 0;
+	}
+	25% {
+		padding-left: 5.633336px;
+	}
+	50% {
+		padding-left: 11.2667px;
+	}
+	75% {
+		padding-left: 19.1667px;
+	}
+	100% {
+		padding-left: 0;
+	}
+}
+@keyframes loading-dots-after {
+	0% {
+		content: "";
+	}
+	25% {
+		content: ".";
+	}
+	50% {
+		content: "..";
+	}
+	75% {
+		content: "...";
+	}
+	100% {
+		content: "";
+	}
+}
+#root.loading {
+	text-align: center;
+}
+#root.loading::before {
+	font-size: 1.6rem;
+	content: "working";
+	animation: loading-dots-before 2s steps( 1 ) 0s infinite;
+}
+#root.loading::after {
+	font-size: 1.6rem;
+	content: "";
+	animation: loading-dots-after 2s steps( 1 ) 0s infinite;
+}
