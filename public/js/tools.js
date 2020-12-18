@@ -9,3 +9,12 @@ function range( a, b, c ) {
 	for ( let i = 0; c > 0 ? i < b : i > b; i += c ) result.push( i );
 	return result;
 }
+
+function loadImage( url ) {
+	return new Promise( function( res, rej ) {
+		const image = new Image();
+		image.src = url;
+		image.addEventListener( "load", () => res( image ) );
+		image.addEventListener( "error", () => rej( new Error( `Error loading image at "${ url }"` ) ) );
+	} );
+}

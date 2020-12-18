@@ -4,19 +4,55 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Simulator</title>
-	<link rel="stylesheet" href="../css/simulation.css">
-	<link rel="shortcut icon" href="../css/img/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet" href="../../../css/simulation.css">
+	<link rel="shortcut icon" href="../../../css/img/favicon.ico" type="image/x-icon">
+	<style>
+		#canvas-container {
+			position: relative;
+			width: 500px;
+			height: 500px;
+		}
+		canvas {
+			position: absolute;
+			z-index: 1;
+		}
+		#animations {
+			z-index: 0;
+		}
+		#controls {
+			display: flex;
+			flex-direction: column;
+
+		}
+	</style>
 </head>
 <body>
-	<canvas width="500px" height="500px">Behncho, canvas bhi nhi chalta tere? Itta toh IE bhi nhi girra hua!</canvas>
+	<div id="canvas-container">
+		<canvas width="500px" height="500px">Behncho, canvas bhi nhi chalta tere? Itta toh IE bhi nhi girra hua!</canvas>
+		<canvas id="animations" width="500px" height="500px"></canvas>
+	</div>
 	<div id="controls">
-		<input type="range" name="area" id="range-area" min="0.1" max="0.5" step="0.1"/>
-		<input type="range" name="intensity" id="range-intensity" min="1" max="30" step="5"/>
-		<input type="range" name="voltage" id="range-voltage" min="-10" max="0" step="0.1"/>
-		<input type="range" name="wavelength" id="range-wavelength" min="100" max="750" step="1"/>
+		<div>
+			<input type="range" name="area" id="range-area" min="0.1" max="0.5" step="0.1"/>
+			<label for="range-area" id="value-area"></label>
+		</div>
+		<div>
+			<input type="range" name="intensity" id="range-intensity" min="0" max="30" step="5"/>
+			<label for="range-intensity" id="value-intensity"></label>
+		</div>
+		<div>
+			<input type="range" name="voltage" id="range-voltage" min="-10" max="0" step="0.1"/>
+			<label for="range-voltage" id="value-voltage"></label>
+		</div>
+		<div>
+			<input type="range" name="wavelength" id="range-wavelength" min="100" max="750" step="1"/>
+			<label for="range-wavelength" id="value-wavelength"></label>
+		</div>
 	</div>
 	<span class="major-mono-display" style="opacity:0">.</span>
-	<script src="../js/simulation.js"></script>
+	<script src="../../../js/tools.js"></script>
+	<script src="../../../js/simulation.js"></script>
 	<script src="simulation.js"></script>
+	<script src="electron-animation.js"></script>
 </body>
 </html>
